@@ -3,42 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Notas</title>
-    <body>
-        
-        <div id="registro">
-            <h2>Registro de Notas</h2>
-            <label for="school">Escola:</label>
-            <input type="text" id="school" placeholder="Instituição de Ensino">
-    
-            <label for="student">Aluno:</label>
-            <input type="text" id="student" placeholder="Aluno">
-    
-            <label for="subject">Matéria:</label>
-            <input type="text" id="subject" placeholder="Disciplina">
-    
-            <label for="grades">Notas (separadas por vírgula):</label>
-            <input type="text" id="grades" placeholder="Notas">
-    
-            <button onclick="addRecord()">Adicionar Registro</button>
-    
-            <h3>Registros:</h3>
-            <table id="records">
-                <thead>
-                    <tr>
-                        <th>Escola</th>
-                        <th>Aluno</th>
-                        <th>Matéria</th>
-                        <th>Notas</th>
-                        <th>Média</th>
-                        <th>Situação</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-  
+    <title>Registro de Notas Escolares</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -47,31 +12,38 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: center center;
-            background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo semi-transparente */
+            background-color: rgba(0, 0, 0, 0.5);
             color: rgb(10, 10, 10);
             margin: 0;
-            padding: 20px;}
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
         #registro {
-            width: 80%;
-            margin: 0 auto;
-            margin-top: 50px;
-            background-color: rgba(255, 228, 196, 0.568);
-         
-            padding: 20px;
+            width: 50%;
+            background-color: rgba(236, 133, 6, 0.568);
+            padding: 25px;
+            font-size: 25px;
             border-radius: 8px;
-           box-shadow: rgba(0, 0, 0, 0.425) 1px 2px ;
+            box-shadow: rgba(7, 0, 0, 0.425) 1px 2px ;
+        }
+       
+        label {
+            display: block;
+            margin-bottom: 5px;
         }
 
         input, select {
             width: 97%;
-            padding: 15px;
-            margin-bottom: 10px;
+            padding: 10px;
+            margin-bottom: 15px;
             border-radius: 8px;
             border: none;
             box-shadow: rgba(0, 0, 0, 0.425) 1px 2px ;
         }
-       
 
         button {
             background-color: #4caf50;
@@ -80,7 +52,6 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            margin-right: 5px;
             box-shadow: rgba(0, 0, 0, 0.425) 1px 2px ;
         }
 
@@ -88,66 +59,148 @@
             background-color: #72d876;
             color: rgb(17, 17, 17);
             transition: 1s;
-           
         }
 
         table {
             color: #050505;
             width: 100%;
-            margin-top: 20px;
             border-collapse: collapse;
-          
+            margin-top: 20px;
+            font-size: 20px;
         }
-        table:hover {
-            color: #534949;
-            transition: 1s;
-        }
-        
 
-        th, td {
-            border: 1px solid #ddd;
+         td {
+            border: 1px solid #ffffff;
+            padding: 2px;
+            text-align: center;
+        }
+
+        .delete-btn, .edit-btn, .save-btn {
             padding: 8px;
-            text-align: left;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
         }
 
         .delete-btn {
             background-color: #f01000;
-            box-sizing: 2px;
         }
+
         .delete-btn:hover {
             background-color: #ee6c62;
             transition: 1s;
         }
 
-        .edit-btn{
+        .edit-btn, .save-btn {
             background-color: #048af8;
-
         }
-        .edit-btn:hover{
+
+        .edit-btn:hover, .save-btn:hover {
             background-color: #399ef1;
-
+            transition: 1s;
         }
 
-        .save-btn {
-            background-color: #048af8;
+        /* Adicionando regras de mídia para ajustar o layout em telas menores */
+       
 
+            .delete-btn {
+                background-color: #f01000;
+                margin: 5px;
+            }
+    
+            .delete-btn:hover {
+                background-color: #ee6c62;
+                transition: 1s;
+            }
+    
+            .edit-btn, .save-btn {
+                background-color: #048af8;
+                margin: 5px;
+            }
+    
+            .edit-btn:hover, .save-btn:hover {
+                background-color: #399ef1;
+                transition: 1s;
+            }
+          
+              
+            @media screen and (max-width: 768px) {
+                #registro {
+                    background-color: rgba(233, 179, 112, 0.548);
+                    width: 90%;
+                    font-size: 10px;
+                }
+                table {
+                    font-size: 10px;                                       
+                    border-collapse:collapse;
+                 
+                }
+                .delete-btn, .edit-btn, .save-btn {
+                    padding: 1px;
+                    font-size: 5px;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                  
+                }
+        
+            }
+                           
+        
+    </style>
+</head>
+<body>
+    <div id="registro">
+        <h2>Registro de Notas Escolares</h2>
+        <label for="school">Escola:</label>
+        <input type="text" id="school" placeholder="Instituição de Ensino">
+
+        <label for="school">Ano Letivo:</label>
+        <input type="number" id="schoolYear" placeholder="Ano Letivo">
+
+        <label for="school">Professor(a):</label>
+        <input type="text" id="teacher" placeholder="Professor(a)">
+
+        <label for="student">Aluno(a):</label>
+        <input type="text" id="student" placeholder="Aluno(a)">
+
+        <label for="subject">Matéria:</label>
+        <input type="text" id="subject" placeholder="Disciplina">
+
+        <label for="grades">Notas (separadas por vírgula):</label>
+        <input type="text" id="grades" placeholder="Notas">
+
+        <button onclick="addRecord()">Adicionar Registro</button>
+
+        <h3>Registros:</h3>
+              <table id="records">                      
+                    <th>Escola</th>
+                    <th>Aluno</th>
+                    <th>Matéria</th>
+                    <th>Notas</th>
+                    <th>Média</th>
+                    <th>Situação</th>       
             
-        }
-        .save-btn:hover {
-            background-color: #399ef1;
+              </table>
+    </div>
 
-           
-          }        
-    </style>   
-
-   <script>
+    <script>
         let editingRow;
 
         function addRecord() {
             const school = document.getElementById('school').value;
+            const schoolYear = document.getElementById('schoolYear').value;
+            const teacher= document.getElementById('teacher').value;
             const student = document.getElementById('student').value;
             const subject = document.getElementById('subject').value;
             const gradesInput = document.getElementById('grades').value;
+
+            // Verificar se os campos obrigatórios estão preenchidos
+            if (!school || !schoolYear|| !teacher|| !student || !subject || !gradesInput) {
+                alert('Por favor, preencha todos os campos obrigatórios.');
+                return;
+            }
 
             const grades = gradesInput.split(',').map(grade => parseFloat(grade.trim()));
             const average = calculateAverage(grades);
@@ -200,7 +253,7 @@
             const editBtn = document.createElement('button');
             editBtn.textContent = 'Editar';
             editBtn.className = 'edit-btn';
-            editBtn.onclick = function() {
+            editBtn.onclick = function () {
                 editRecord(newRow);
             };
             actionCell.appendChild(editBtn);
@@ -208,7 +261,7 @@
             const saveBtn = document.createElement('button');
             saveBtn.textContent = 'Salvar';
             saveBtn.className = 'save-btn';
-            saveBtn.onclick = function() {
+            saveBtn.onclick = function () {
                 saveRecord(newRow);
             };
             actionCell.appendChild(saveBtn);
@@ -216,7 +269,7 @@
             const deleteBtn = document.createElement('button');
             deleteBtn.textContent = 'Excluir';
             deleteBtn.className = 'delete-btn';
-            deleteBtn.onclick = function() {
+            deleteBtn.onclick = function () {
                 deleteRecord(newRow);
             };
             actionCell.appendChild(deleteBtn);
@@ -265,9 +318,7 @@
             document.getElementById('student').value = '';
             document.getElementById('subject').value = '';
             document.getElementById('grades').value = '';
-        }ocument.getElementById('grades').value = '';
-        
+        }
     </script>
-
 </body>
 </html>
